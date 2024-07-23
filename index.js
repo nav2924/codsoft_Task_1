@@ -10,8 +10,13 @@ app.use(cors());
 
 
 
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster.bscwboa.mongodb.net/?retryWrites=true&w=majority`;
+// <<<<<<< nav2924-patch-1
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://Nvn_2924:Jimmy29012004@cluster.bscwboa.mongodb.net/?retryWrites=true&w=majority";
+// =======
+// const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster.bscwboa.mongodb.net/?retryWrites=true&w=majority`;
+// >>>>>>> master
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -58,43 +63,47 @@ async function run() {
       }
     });
 
-    //get single job 
-    app.get("/all-jobs/:id",async(req,res) => {
-      const id = req.params.id;
-      const jobs = await jobsCollection.find({
-        _id : new ObjectId(id)
-      })
-      res.send(jobs)
-    })
-    //get jobs by email
-    app.get("/myJobs/:email" ,async(req,res) => {
-     //console.log(req.params.email);
-      const jobs = await jobsCollection.find({ postedby : req.params.email}).toArray();
-      res.send(jobs);
-    })
+// <<<<<<< nav2924-patch-1
+    
+// =======
+//     //get single job 
+//     app.get("/all-jobs/:id",async(req,res) => {
+//       const id = req.params.id;
+//       const jobs = await jobsCollection.find({
+//         _id : new ObjectId(id)
+//       })
+//       res.send(jobs)
+//     })
+//     //get jobs by email
+//     app.get("/myJobs/:email" ,async(req,res) => {
+//      //console.log(req.params.email);
+//       const jobs = await jobsCollection.find({ postedby : req.params.email}).toArray();
+//       res.send(jobs);
+//     })
 
-    //delete a job
-    app.delete("/job/:id", async(req , res) => {
-      const id = req.params.id;
-      const filter = {_id: new ObjectId(id)}
-      const result = await jobsCollection.deleteOne(filter);
-      res.send(result)
-    })
+//     //delete a job
+//     app.delete("/job/:id", async(req , res) => {
+//       const id = req.params.id;
+//       const filter = {_id: new ObjectId(id)}
+//       const result = await jobsCollection.deleteOne(filter);
+//       res.send(result)
+//     })
 
-    // update a job
-    app.patch("/update-job/:id",async(req,res) => {
-      const id = req.params.id;
-      const jobData = req.body;
-      const filter =  {_id:new Object(id)};
-      const options = { upsert : true };
-      const updateDoc = {
-        $set : {
-          ...jobData
-        },
-      };
-      const result = await jobsCollection.updateOne(filter , updateOne ,options);
-      res.send(result);
-    })
+//     // update a job
+//     app.patch("/update-job/:id",async(req,res) => {
+//       const id = req.params.id;
+//       const jobData = req.body;
+//       const filter =  {_id:new Object(id)};
+//       const options = { upsert : true };
+//       const updateDoc = {
+//         $set : {
+//           ...jobData
+//         },
+//       };
+//       const result = await jobsCollection.updateOne(filter , updateOne ,options);
+//       res.send(result);
+//     })
+// >>>>>>> master
 
     //await client.connect();
     // Send a ping to confirm a successful connection
